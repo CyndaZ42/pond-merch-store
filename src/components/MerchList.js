@@ -31,21 +31,39 @@ const merchItems = [{
   }
 ];
 
-
-function MerchList() {
-  return (
-    <React.Fragment>
-      <hr/>
-      {merchItems.map((item, index) =>
-      <MerchItem name={item.name}
-      year={item.year}
-      price={item.price}
-      onStock={item.onStock}
-      key={index} />
-      )}
-    </React.Fragment>
-  );
+class MerchList extends React.Component {
+constructor(props) {
+  super(props);
+  this.state = {
+    updateOnStock: <MerchItem onStock={merchItems[0].onStock}/>
+  }
 }
+
+handleAddingNewItemToCart = () => {
+  const itemsInCart = this.state.updateOnStock - 1;
+  this.setState({updateOnStock: itemsInCart})
+}
+
+  render() {
+  
+    return (
+      <React.Fragment>
+        <hr/>
+        {merchItems.map((item, index) =>
+        <MerchItem handleAddingItemToCart={this.handleAddingItemToCart}
+        name={item.name}
+        year={item.year}
+        price={item.price}
+        onStock={item.onStock}
+        key={index} />
+        )}
+      </React.Fragment>
+    );
+  }
+
+}
+
+
 
 MerchList.propTypes = {
   merchItem: PropTypes.array

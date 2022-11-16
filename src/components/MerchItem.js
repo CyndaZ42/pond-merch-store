@@ -1,12 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function handleAddingItemToCart(event){
-  event.preventDefault();
-  console.log("Hey!!!");
-}
 
 function MerchItem(props){
+  
+  function handleAddingItemToCart (event) {
+    event.preventDefault();
+    props.onNewItemCreation({
+      onStock: event.target.issue.value
+    })
+  }
+
   return (
     <React.Fragment>
     <form onSubmit={handleAddingItemToCart}>
@@ -26,6 +30,7 @@ MerchItem.propTypes = {
   name: PropTypes.string,
   year: PropTypes.string,
   price: PropTypes.string,
-  onStock: PropTypes.number
+  onStock: PropTypes.number,
+  handleAddingNewItemToCart: PropTypes.func
 }
 export default MerchItem;
